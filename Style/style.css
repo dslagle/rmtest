@@ -1,0 +1,122 @@
+@import '../node_modules/react-date-picker/index.css';
+
+.problem-date {
+    margin-bottom: 10px;
+}
+
+ul.navbar-nav li:hover {
+    background-color: #DDDDDD;
+}
+
+nav {
+    box-shadow: 0 3px 5px #EDEDED;
+}
+
+a.selected, a.selected:hover {
+    background-color: #51A3FF;
+}
+
+ul.vehicle-dropdown {
+    max-height: 300px;
+    overflow: scroll;
+}
+
+ul.vehicle-dropdown .list-group-item {
+    border: none;
+}
+
+ul.vehicle-dropdown .list-group-item:hover {
+    background-color: #51A3FF;
+}
+
+.content {
+    margin-top: 70px;
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table {
+    table-layout: auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td.only {
+    font-size: 14pt;
+}
+
+td, th {
+    padding: 5px !important;
+    border: 1px solid gray;
+    white-space: nowrap;
+}
+
+.map {
+    border: 1px solid gray;
+    margin-top: -1px;
+}
+
+th {
+    background-color: #555555;
+    color: white;
+}
+
+td.center {
+    text-align: center;
+}
+
+td.ahead {
+    background-color: #9999FF;
+}
+
+td.behind {
+    background-color: #FF9999;
+}
+
+td.ontime {
+    background-color: #99FF99;
+}
+
+td.fade-in {
+  animation-duration: 2s;
+  animation-name: fadein;
+}
+
+table.col-fill-1 td:nth-child(1), table.col-fill-2 td:nth-child(2), table.col-fill-3 td:nth-child(3),
+table.col-fill-4 td:nth-child(4), table.col-fill-5 td:nth-child(5), table.col-fill-6 td:nth-child(6) {
+    width: 100%;
+}
+
+@keyframes fadein {
+  from {
+    background-color: #51A3FF;
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
+
+tr:nth-child(2n) {
+    background-color: #CCDDFF;
+}
+
+tr:nth-child(2n+1) {
+    background-color: #EEEEEE;
+}
+
+
+
+table.hot-track-row tr:hover > td, table.hot-track-cell td:hover {
+    background-color: #51A3FF;
+    cursor: pointer;
+}
+
+table.selectable-row tr.selected > td {
+    background-color: #51A3FF;
+    cursor: default !important;
+}
