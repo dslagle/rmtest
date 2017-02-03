@@ -10,6 +10,7 @@ import { VehicleList } from "./containers/vehicle-list";
 import { RoutePatternList } from "./containers/route-pattern-list";
 import { ActualStopList } from "./containers/actual-stop-list";
 import { ActualProblemsList } from "./containers/actual-troubleshooting";
+import { ProblemsList } from "./containers/troubleshooting";
 import ActiveList from "./components/active-list";
 
 export default (
@@ -18,7 +19,9 @@ export default (
         <Route path="/runs" component={RunList} />
         <Route path="/routes" component={RouteList} />
         <Route path="/stops" component={ActualStopList} />
-        <Route path="/troubleshooting" component={ActualProblemsList} />
+        <Route path="/troubleshooting" component={ProblemsList} />
+        <Route path="/troubleshooting/:date" component={ActualProblemsList} />
+        <Route path="/troubleshooting/:sdate/:edate" component={ProblemsList} />
         <Route path="/routes/:id" component={RoutePatternList} />
         <Route path="/runs/:id" component={RunTripList} />
         <Route path="/trips/:id" component={TripStopList} />

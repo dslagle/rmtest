@@ -4,23 +4,38 @@ import { connect } from "react-redux";
 import { getActualProblems } from "../actions/index";
 import { FormatAsTime, FormatDateDiff, RMDate } from "../actions/helpers";
 import { DateField, DatePicker } from "react-date-picker";
+import { browserHistory } from "react-router";
+import Axios from "axios";
 
 class ActualProblemsList extends Component {
     constructor(props) {
         super(props);
+
+        this.state = { date: RMDate(Date.now()), problems: [] };
+    }
+
+    update(d) {
+        Axios.get(`http://localhost:9000/data/outoforder/${+d}`)
+            .then((response) => this.setState({ date: RMDate(+d), problems: response.data }))
+            .catch(err => console.log(err));
     }
 
     componentWillMount() {
-        //this.props.getActualProblems(this.state.problemDate);
+        const d = this.props.params.date || Date.now();
+        browserHistory.push(`/troubleshooting/${d}`);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.update.call(this, nextProps.params.date || Date.now());
     }
 
     onChange(dateString) {
         const d = RMDate(dateString);
-        this.props.getActualProblems(d);
+        browserHistory.push(`/troubleshooting/${d.getTime()}`);
     }
 
     renderProblems() {
-        return this.props.actualProblems
+        return this.state.problems
         .map(p => {
             return (
                 <tr key={p.DailyStopID}>
@@ -30,13 +45,13 @@ class ActualProblemsList extends Component {
                     <td>{p["Stop 1"]}</td>
                     <td>{p.StopOrder[0]}</td>
                     <td>{FormatAsTime(p.Scheduled[0])}</td>
-                    <td>{FormatAsTime(p.Arrive[0])}</td>
+                    <td className="behind">{FormatAsTime(p.Arrive[0])}</td>
                     <td>{FormatAsTime(p.Depart[0])}</td>
                     <td>{p["Arrival Completion"][0]}</td>
                     <td>{p["Stop 2"]}</td>
                     <td>{p.StopOrder[1]}</td>
                     <td>{FormatAsTime(p.Scheduled[1])}</td>
-                    <td>{FormatAsTime(p.Arrive[1])}</td>
+                    <td className="behind">{FormatAsTime(p.Arrive[1])}</td>
                     <td>{FormatAsTime(p.Depart[1])}</td>
                     <td>{p["Arrival Completion"][1]}</td>
                 </tr>
@@ -51,10 +66,11 @@ class ActualProblemsList extends Component {
                     className="problem-date"
                     dateFormat="YYYY-MM-DD"
                     forceValidDate={true}
-                    defaultValue={Date.now()}
+                    defaultValue={this.state.date}
                     onChange={(d) => this.onChange(d)}
                     updateOnDateClick={true}
-                    collapseOnDateClick={true}>
+                    collapseOnDateClick={true}
+                    >
                     
                     <DatePicker
                         navigation={true}
@@ -102,4 +118,4 @@ function mapStateToProps(state) {
     }
 }
 
-module.exports = { ActualProblemsList: connect(mapStateToProps, { getActualProblems })(ActualProblemsList) };
+module.exports = { ActualProblemsList: connect(null, { getActualProblems })(ActualProblemsList) };
