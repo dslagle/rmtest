@@ -24,7 +24,7 @@ export function getVehiclesGPS() {
 }
 
 export function getActualProblems(date) {
-    const url = `${BASE_URL}/outoforder/${date.getTime()}`
+    const url = `${BASE_URL}/outoforder/${date}`
     const response = Axios.get(url);
 
     return {

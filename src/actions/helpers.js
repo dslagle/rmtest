@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function FormatAsTime(value) {
     if (!value) return "";
 
@@ -6,6 +8,12 @@ export function FormatAsTime(value) {
     const m = d.getMinutes();
 
     return `${d.getHours()}:${m < 10 ? "0" : ""}${m}`;
+}
+
+export function FormatAsDate(d) {
+    if (!d) return "";
+
+    return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 }
 
 export function FormatDateDiff(value1, value2) {
@@ -29,5 +37,22 @@ export function FormatDateDiff(value1, value2) {
 
 export function RMDate(date) {
     const d = new Date(date);
-    return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+    return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+}
+
+export function DateRange(start, end) {
+    const s = moment(start);
+    const e = moment(end);
+    let d = moment(start);
+
+    if (s > e) return [];
+    else if (s === e) return [s];
+
+    let range = [];
+    while (d <= e) {
+        range.push(d);
+        d = moment(d).add(1, "days");
+    }
+
+    return range;
 }

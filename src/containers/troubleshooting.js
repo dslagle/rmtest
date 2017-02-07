@@ -2,31 +2,33 @@ import React, { Component } from "react";
 import { Link } from "react-router";
 import { connect } from "react-redux";
 import { getActualProblems } from "../actions/index";
-import { FormatAsTime, FormatDateDiff, RMDate } from "../actions/helpers";
 import { TransitionView, MultiMonthView } from "react-date-picker";
 import { browserHistory } from "react-router";
+import { DateRange } from "../actions/helpers";
 import Axios from "axios";
+import moment from "moment";
+import { ActualProblemsList } from "./actual-troubleshooting";
 
-export class ProblemsList extends Component {
+class ProblemsList extends Component {
     constructor(props) {
         super(props);
 
-        const sdate = RMDate(Date.now());
-        sdate.setDate(sdate.getDate() - 10);
-        this.state = { sdate: sdate, edate: RMDate(Date.now()), problems: [] };
+        const sdate = moment(Date.now()).startOf("day").add(-10, "days").valueOf();
+        const edate = moment(Date.now()).startOf("day").valueOf();
+        
+        this.state = { sdate: sdate, edate: edate, problems: null, selectedDate: sdate };
     }
 
     update(d1, d2) {
-        console.log(d1);
-        console.log(d2);
         Axios.get(`http://localhost:9000/data/problemcounts/${+d1}/${+d2}`)
-            .then((response) => this.setState({ sdate: RMDate(+d1), edate: RMDate(+d2), problems: response.data }))
+            .then((response) => this.setState({ sdate: moment(+d1).valueOf(), edate: moment(+d2).valueOf(), problems: response.data }))
             .catch(err => console.log(err));
     }
 
     componentWillMount() {
-        const d1 = this.props.params.sdate || Date.now() - (10*24*60*60*1000); //minus 10 days in ms
-        const d2 = this.props.params.edate || Date.now();
+        const d1 = this.props.params.sdate || moment(Date.now()).startOf("day").add(-10, "days").valueOf(); //minus 10 days in ms
+        const d2 = this.props.params.edate || moment(Date.now()).startOf("day").valueOf();
+
         browserHistory.push(`/troubleshooting/${d1}/${d2}`);
     }
 
@@ -35,15 +37,37 @@ export class ProblemsList extends Component {
     }
 
     onRangeChange(range) {
-        const d1 = RMDate(d1);
-        const d2 = RMDate(d2);
-        browserHistory.push(`/troubleshooting/${d1.getTime()}/${d2.getTime()}`);
+        if (range.length !== 2) return;
+
+        const d1 = moment(range[0]).valueOf();
+        const d2 = moment(range[1]).valueOf();
+        
+        browserHistory.push(`/troubleshooting/${d1}/${d2}`);
+    }
+
+    selectDate(date) {
+        this.setState({ ...this.state, selectedDate: date.valueOf() });
+        this.props.getActualProblems(date.valueOf());
+    }
+
+    renderDays() {
+        return DateRange(this.state.sdate, this.state.edate)
+            .map(d => {
+                return (
+                    <div className="day" key={d.valueOf()} onClick={() => this.selectDate(d)}>
+                        <span>{d.format("MM/DD/YYYY")}</span>
+                        <span className="problem-count">
+                            {this.state.problems ? this.state.problems[d.format("YYYY-MM-DD")].Count : "X"}
+                        </span>
+                    </div>
+                );
+            })
     }
 
     render() {
         return (
             <div>
-                <TransitionView footer={false} navigation={true}>
+                <TransitionView footer={false} navigation={true} style={ { float: "left" } }>
                     <MultiMonthView
                         highlightWeekends={true}
                         highlightToday={true}
@@ -57,8 +81,17 @@ export class ProblemsList extends Component {
                     />
                 </TransitionView>
 
-                
+                <div className="day-view col-md-6">
+                    {this.renderDays.call(this)}
+                </div>
+
+                <h3 style={{ display: "block", clear: "both", paddingTop: "10px", margin: "0" }}>{moment(this.state.selectedDate).format("MM/DD/YYYY")}</h3>
+                <div className="problem-table-container">
+                    <ActualProblemsList />
+                </div>
             </div>
         );
     }
 }
+
+module.exports = { ProblemsList: connect(null, { getActualProblems })(ProblemsList) };

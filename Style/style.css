@@ -33,6 +33,16 @@ ul.vehicle-dropdown .list-group-item:hover {
     margin-top: 70px;
 }
 
+.problem-table-container {
+    max-height: 600px;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid gray;
+    margin-top: 3px;
+    padding: -1px;
+}
+
 .table-container {
     max-height: 400px;
     overflow-y: auto;
@@ -43,6 +53,10 @@ table {
     table-layout: auto;
     border-collapse: collapse;
     width: 100%;
+}
+
+table.problem-list {
+    margin: -1px;
 }
 
 td.only {
@@ -119,4 +133,44 @@ table.hot-track-row tr:hover > td, table.hot-track-cell td:hover {
 table.selectable-row tr.selected > td {
     background-color: #51A3FF;
     cursor: default !important;
+}
+
+div.day-view {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 1px;
+}
+
+div.day {
+    display: inline-block;
+    height: 100%;
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+    text-align: center;
+    background-color: #EEEEEE;
+}
+
+div.day:hover {
+    background-color: #51A3FF;
+    cursor: pointer;
+}
+
+div.day span {
+    font-weight: bold;
+}
+
+div.day span.problem-count {
+    display: block;
+    margin-top: 10px;
+    padding: 5px 15px;
+    text-align: center;
+    border: 1px solid lightgray;
+    background-color: #CC5566;
+    color: white;
+    font-weight: bold;
+    font-size: 16pt;
 }
