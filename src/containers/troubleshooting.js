@@ -9,6 +9,8 @@ import Axios from "axios";
 import moment from "moment";
 import { ActualProblemsList } from "./actual-troubleshooting";
 
+const BASE_URL = `http://50.167.185.158:9000/data`;
+
 class ProblemsList extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ class ProblemsList extends Component {
     }
 
     update(d1, d2) {
-        Axios.get(`http://localhost:9000/data/problemcounts/${+d1}/${+d2}`)
+        Axios.get(`${BASE_URL}/problemcounts/${+d1}/${+d2}`)
             .then((response) => this.setState({ sdate: moment(+d1).valueOf(), edate: moment(+d2).valueOf(), problems: response.data }))
             .catch(err => console.log(err));
     }
