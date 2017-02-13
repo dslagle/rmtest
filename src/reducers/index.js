@@ -10,6 +10,8 @@ import routePatternsReducer from "./reducer-route-patterns";
 import actualStopsReducer from "./reducer-actual-stops";
 import actualProblemsReducer from "./reducer-actual-problems";
 
+import moment from "moment";
+
 const rootReducer = combineReducers({
   vehicles: vehiclesReducer,
   vehiclesGPS: vehiclesGPSReducer,
@@ -20,7 +22,35 @@ const rootReducer = combineReducers({
   routes: routesReducer,
   routePatterns: routePatternsReducer,
   actualStops: actualStopsReducer,
-  actualProblems: actualProblemsReducer
+  actualProblems: actualProblemsReducer,
+  activeDate: (state = moment().startOf('day').utc().valueOf(), action) => {
+    switch (action.type) {
+      case "SET_ACTIVE_DATE":
+        return action.payload;
+      default: return state;
+    }
+  },
+  threshold: (state = 5, action) => {
+    switch (action.type) {
+      case "SET_THRESHOLD":
+        return action.payload;
+      default: return state;
+    }
+  },
+  patternETAAnalytics: (state = [], action) => {
+    switch (action.type) {
+      case "GET_PATTERN_ETA_ANALYTICS":
+        return action.payload.data;
+      default: return state;
+    }
+  },
+  stopETAAnalytics: (state = [], action) => {
+    switch (action.type) {
+      case "GET_STOP_ETA_ANALYTICS":
+        return action.payload.data;
+      default: return state;
+    }
+  }
 });
 
 export default rootReducer;

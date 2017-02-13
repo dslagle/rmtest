@@ -1,15 +1,28 @@
 @import '../node_modules/react-date-picker/index.css';
+@import '../node_modules/react-datepicker/dist/react-datepicker.css';
+@import './analytics.css';
+
+#menu-bar {
+    background-color: #444444;
+    border-bottom: 1px solid #81B3DF;
+}
+
+#menu-bar .text-info {
+    color: #81B3DF;
+}
 
 .problem-date {
     margin-bottom: 10px;
 }
 
-ul.navbar-nav li:hover {
-    background-color: #DDDDDD;
+ul.navbar-nav li {
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
 }
 
-nav {
-    box-shadow: 0 3px 5px #EDEDED;
+ul.navbar-nav li:hover {
+    border-left: 1px solid #81B3DF;
+    border-right: 1px solid #81B3DF;
 }
 
 a.selected, a.selected:hover {
@@ -30,7 +43,8 @@ ul.vehicle-dropdown .list-group-item:hover {
 }
 
 .content {
-    margin-top: 70px;
+    margin-top: 60px;
+    margin-bottom: 10px;
 }
 
 .problem-table-container {
@@ -75,7 +89,7 @@ td, th {
 }
 
 th {
-    background-color: #555555;
+    background-color: #444444;
     color: white;
 }
 
@@ -143,34 +157,76 @@ div.day-view {
 
 div.day {
     display: inline-block;
-    height: 100%;
-    width: 100px;
-    height: 100px;
-    padding: 5px;
+    width: 40px;
+    height: 50px;
     border: 1px solid black;
     margin-left: -1px;
     margin-top: -1px;
-    text-align: center;
-    background-color: #EEEEEE;
+    background-color: white;
+    text-align: left;
 }
 
-div.day:hover {
-    background-color: #51A3FF;
-    cursor: pointer;
-}
-
-div.day span {
-    font-weight: bold;
+div.day span.week-day {
+    margin: 0;
+    margin-left: 2px;
+    padding: 0;
+    font-size: 8pt;
+    font-weight: normal;
+    color: black;
 }
 
 div.day span.problem-count {
     display: block;
-    margin-top: 10px;
-    padding: 5px 15px;
     text-align: center;
-    border: 1px solid lightgray;
-    background-color: #CC5566;
-    color: white;
+    color: #333333;
     font-weight: bold;
-    font-size: 16pt;
+    font-size: 14pt;
+    margin-top: -5px;
 }
+
+div.day:not(.off-month):hover {
+    background-color: #51A3FF;
+    cursor: pointer;
+}
+
+div.day.today {
+    background-color: #81B3DF;
+}
+
+div.day.off-month {
+    background-color: #DDDDDD;
+}
+
+div.day.off-month span.week-day {
+    color: #AAAAAA;
+}
+
+div.day.off-month span.problem-count {
+    color: transparent;
+}
+
+.problem-calendar {
+    width: 100%;
+    text-align: center;
+}
+
+div.month {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+div.month span.title {
+    display: block;
+    width: calc(100% + 1px);
+    padding: 3px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: #81B3DF;
+    margin-left: -1px;
+    font-weight: bold;
+}
+
+div.month:first-child {
+    margin-left: none;
+}
+

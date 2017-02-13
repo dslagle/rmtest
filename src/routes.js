@@ -11,15 +11,26 @@ import { RoutePatternList } from "./containers/route-pattern-list";
 import { ActualStopList } from "./containers/actual-stop-list";
 import { ActualProblemsList } from "./containers/actual-troubleshooting";
 import { ProblemsList } from "./containers/troubleshooting";
+import { ProblemCalendar } from "./containers/problem-calendar";
+import { RoutePatternETAAnalytics } from "./containers/route-pattern-eta-analytics";
+import { StopETAAnalytics } from "./components/stop-eta-analytics";
 import ActiveList from "./components/active-list";
+import { Analytics } from "./containers/analytics";
+
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={ActiveList} />
+        <IndexRoute component={Analytics} />
         <Route path="/runs" component={RunList} />
         <Route path="/routes" component={RouteList} />
         <Route path="/stops" component={ActualStopList} />
-        <Route path="/troubleshooting" component={ProblemsList} />
+
+        <Route path="/analytics" component={Analytics}>
+            <IndexRoute component={RoutePatternETAAnalytics} />
+            <Route path="/analytics/patterns" component={RoutePatternETAAnalytics} />
+            <Route path="/analytics/patterns/:id" component={StopETAAnalytics} />
+        </Route>
+        
         <Route path="/troubleshooting/:date" component={ActualProblemsList} />
         <Route path="/troubleshooting/:sdate/:edate" component={ProblemsList} />
         <Route path="/routes/:id" component={RoutePatternList} />

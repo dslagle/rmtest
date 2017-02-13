@@ -12,7 +12,7 @@ class RouteList extends Component {
     }
 
     componentWillMount() {
-        this.props.getRoutes();
+        this.props.getRoutes(this.props.activeDate);
     }
 
     renderRoutes() {
@@ -43,7 +43,8 @@ class RouteList extends Component {
 
 function mapStateToProps(state) {
     return {
-        routes: state.routes
+        routes: state.routes,
+        activeDate: state.activeDate
     }
 }
 

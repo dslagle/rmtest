@@ -1,42 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { Link } from "react-router";
 import { GPSMap } from "../components/google-map";
+import { setAciveDate, getPatternETAAnalytics } from "../actions/index";
+import DatePicker from "react-datepicker";
+import moment from "moment";
 
-export class App extends Component {
+class App extends Component {
   render() {
+
+    // <li className="nav-item"><Link to="/" className="nav-link"><span className="text-info">Home</span></Link></li>
+    // <li className="nav-item"><Link to="/runs" className="nav-link"><span className="text-info">Runs</span></Link></li>
+    // <li className="nav-item"><Link to="/routes" className="nav-link"><span className="text-info">Routes</span></Link></li>
+    // <li className="nav-item"><Link to="/stops" className="nav-link"><span className="text-info">Stops</span></Link></li>
+
     return (
       <div>
-        <nav className="navbar navbar-default navbar-fixed-top">
+        <nav id="menu-bar" className="navbar navbar-default navbar-fixed-top">
           <div className="container-fluid">
             <div className="navbar-header">
               <a className="navbar-brand" href="#">RM</a>
             </div>
 
             <ul className="nav navbar-nav float-xs-left">
-              <li className="nav-item"><Link to="/" className="nav-link"><span className="text-info">Home</span></Link></li>
-              <li className="nav-item"><Link to="/runs" className="nav-link"><span className="text-info">Runs</span></Link></li>
-              <li className="nav-item"><Link to="/routes" className="nav-link"><span className="text-info">Routes</span></Link></li>
-              <li className="nav-item"><Link to="/stops" className="nav-link"><span className="text-info">Stops</span></Link></li>
-              <li className="nav-item"><Link to="/troubleshooting" className="nav-link"><span className="text-info">Troubleshooting</span></Link></li>
+              <li className="nav-item"><Link to="/analytics" className="nav-link"><span className="text-info">ETA Analytics</span></Link></li>
             </ul>
 
-            <div className="navbar-right" style={{ marginRight: "5px" }}>
-              <ul className="nav navbar-nav">
-                <li className="dropdown">
-                  <a className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src="/resources/ic_settings_24px.svg" />
-                    <span className="caret"></span>
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li><Link to="/">Item 1</Link></li>
-                    <li><Link to="/">Item 2</Link></li>
-                    <li><Link to="/">Item 3</Link></li>
-                    <li><Link to="/">Item 4</Link></li>
-                  </ul>
-                </li>
-              </ul>
+            <div className="navbar-form navbar-right">
               
-              <Link className="navbar-btn btn btn-info btn-sm" to="/posts/create">Create Post</Link>
             </div>
           </div>
         </nav>
@@ -48,3 +39,9 @@ export class App extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { activeDate: state.activeDate }
+}
+
+module.exports = { App: connect(mapStateToProps, { setAciveDate, getPatternETAAnalytics })(App) };

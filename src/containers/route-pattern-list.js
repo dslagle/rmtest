@@ -10,7 +10,7 @@ class RoutePatternList extends Component {
     }
 
     componentWillMount() {
-        this.props.getRoutePatterns(this.props.params.id);
+        this.props.getRoutePatterns(this.props.params.id, this.props.activeDate);
     }
 
     renderPatterns() {
@@ -41,7 +41,8 @@ class RoutePatternList extends Component {
 
 function mapStateToProps(state) {
     return {
-        patterns: state.routePatterns
+        patterns: state.routePatterns,
+        activeDate: state.activeDate
     }
 }
 

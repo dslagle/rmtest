@@ -1,0 +1,125 @@
+div.analytics-options, div.crumbs {
+    padding: 10px 5px;
+    border: 1px solid gray;
+    border-bottom: none;
+    background-color: #444444;
+    color: white;
+    font-weight: bold;
+}
+
+div.analytics-options div.options div.option-input span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.analytics-options div.options > div {
+    margin-top: 15px;
+}
+
+div.analytics-options div.options > div:first-child {
+    margin-top: 0;
+}
+
+div.analytics-options input[type="text"], div.analytics-options input[type="range"] {
+    background-color: #777777;
+    border: 1px solid gray;
+    padding-left: 5px;
+}
+
+div.analytics-options input[type="range"] {
+    display: inline-block;
+    width: 100px;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+div.analytics-options div.options {
+    float: left;
+    margin-left: 5px;
+    padding: 3px;
+}
+
+div.analytics-options div.legend {
+    float: right;
+    border: 1px solid gray;
+    background-color: #555555;
+    margin-right: 5px;
+    padding: 5px 10px;
+}
+
+.clearfix::after { 
+   content: " ";
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+div.legend div.legend-item {
+    vertical-align: middle;
+}
+
+div.legend div.legend-item span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.legend span.legend-color {
+    width: 16px;
+    height: 16px;
+    border: 1px solid gray;
+}
+
+div.legend span.legend-color.late {
+    background-color: #FFAE34;
+}
+
+div.legend span.legend-color.ontime {
+    background-color: #55AD89;
+}
+
+div.legend span.legend-color.early {
+    background-color: #EF6F6A;
+}
+
+div.legend span.legend-text {
+    margin-left: 5px;
+}
+
+table.tooltip-table {
+    color: white;
+    background-color: #444444;
+}
+
+table.tooltip-table td {
+    border: none !important;
+    background-color: #444444 !important;
+    text-align: right;
+}
+
+table.tooltip-table td:first-child {
+    font-weight: bold;
+    text-align: left;
+}
+
+td.rm-tooltip {
+    position: relative;
+}
+
+span.rm-tooltip {
+    display: none;
+    position: absolute;
+    width: 215px;
+    z-index: 100;
+    padding: 5px;
+    background-color: #444444;
+    color: white;
+    font-weight: bold;
+    top: 30px;
+    left: -110px;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+td.rm-tooltip:hover span.rm-tooltip {
+    display: block;
+}
