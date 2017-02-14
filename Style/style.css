@@ -15,14 +15,13 @@
     margin-bottom: 10px;
 }
 
-ul.navbar-nav li {
-    border-left: 1px solid transparent;
-    border-right: 1px solid transparent;
+#menu-bar ul.navbar-nav li:hover, #menu-bar ul.navbar-nav li.dropdown.open > a {
+    background-color: #81B3DF;
+    color: black;
 }
 
-ul.navbar-nav li:hover {
-    border-left: 1px solid #81B3DF;
-    border-right: 1px solid #81B3DF;
+#menu-bar ul.navbar-nav li:hover .text-info {
+    color: black;
 }
 
 a.selected, a.selected:hover {

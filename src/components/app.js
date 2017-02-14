@@ -23,15 +23,24 @@ class App extends Component {
             </div>
 
             <ul className="nav navbar-nav float-xs-left">
-              <li className="nav-item"><Link to="/analytics" className="nav-link"><span className="text-info">ETA Analytics</span></Link></li>
+              <li className="dropdown">
+                <a className="dropdown-toggle text-info" data-toggle="dropdown" role="button" aria-expanded="false">
+                  ETA Analytics
+                  <span className="caret"></span>
+                </a>
+                <ul className="dropdown-menu" role="menu">
+                  <li><Link to="/analytics/patterns">Route Patterns</Link></li>
+                  <li><Link to="/analytics/stops">Stops</Link></li>
+                </ul>
+              </li>
             </ul>
 
             <div className="navbar-form navbar-right">
-              
+
             </div>
           </div>
         </nav>
-        
+
         <div className="content col-md-12">
           {this.props.children}
         </div>
