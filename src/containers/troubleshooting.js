@@ -9,8 +9,8 @@ import Axios from "axios";
 import moment from "moment";
 import { ActualProblemsList } from "./actual-troubleshooting";
 
-//const BASE_URL = `http://50.167.185.158:9000/data`;
-const BASE_URL = `http://localhost:9000/data`;
+const BASE_URL = `http://50.167.185.158:9000/data`;
+//const BASE_URL = `http://localhost:9000/data`;
 
 class ProblemsList extends Component {
     constructor(props) {
@@ -49,15 +49,15 @@ class ProblemsList extends Component {
     }
 
     selectDate(date) {
-        this.setState({ ...this.state, selectedDate: date.valueOf() });
-        this.props.getActualProblems(date.valueOf());
+        this.setState({ ...this.state, selectedDate: date });
+        this.props.getActualProblems(date);
     }
 
     renderDays() {
         return DateRange(this.state.sdate, this.state.edate)
             .map(d => {
                 return (
-                    <div className="day" key={d.valueOf()} onClick={() => this.selectDate(d)}>
+                    <div className="day" key={d.valueOf()} onClick={() => this.selectDate(d.valueOf())}>
                         <span>{d.format("MM/DD/YYYY")}</span>
                         <span className="problem-count">
                             {this.state.problems ? this.state.problems[d.format("YYYY-MM-DD")].Count : "X"}
@@ -88,7 +88,7 @@ class ProblemsList extends Component {
                     {this.renderDays.call(this)}
                 </div>
 
-                <h3 style={{ display: "block", clear: "both", paddingTop: "10px", margin: "0" }}>{moment(this.state.selectedDate).format("MM/DD/YYYY")}</h3>
+                <h3 style={{ display: "block", clear: "both", paddingTop: "10px", margin: "0" }}>{moment(this.state.selectedDate).utc().format("MM/DD/YYYY")}</h3>
                 <div className="problem-table-container">
                     <ActualProblemsList />
                 </div>

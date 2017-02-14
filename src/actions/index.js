@@ -1,8 +1,8 @@
 import Axios from "axios";
 
-//const BASE_URL = `http://50.167.185.158:9000/data`;
+const BASE_URL = `http://50.167.185.158:9000/data`;
 //const BASE_URL = `http://localhost:9000/data`;
-const BASE_URL = `http://10.7.1.124:9000/data`;
+//const BASE_URL = `http://10.7.1.124:9000/data`;
 
 export const GET_VEHICLES = "GET_VEHICLES";
 export const GET_VEHICLES_GPS = "GET_VEHICLES_GPS";

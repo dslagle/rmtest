@@ -41,9 +41,9 @@ export function RMDate(date) {
 }
 
 export function DateRange(start, end) {
-    const s = moment(start).utc();
-    const e = moment(end).utc();
-    let d = moment(start).utc();
+    const s = moment(start).utc(true);
+    const e = moment(end).utc(true);
+    let d = moment(start).utc(true);
 
     if (s > e) return [];
     else if (s === e) return [s];
@@ -51,7 +51,7 @@ export function DateRange(start, end) {
     let range = [];
     while (d <= e) {
         range.push(d);
-        d = moment(d).utc().add(1, "days");
+        d = moment(d).utc(true).add(1, "days");
     }
 
     return range;

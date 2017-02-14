@@ -31,6 +31,7 @@ export default (
             <Route path="/analytics/patterns/:id" component={StopETAAnalytics} />
         </Route>
         
+        <Route path="/troubleshooting" component={ProblemsList} />
         <Route path="/troubleshooting/:date" component={ActualProblemsList} />
         <Route path="/troubleshooting/:sdate/:edate" component={ProblemsList} />
         <Route path="/routes/:id" component={RoutePatternList} />

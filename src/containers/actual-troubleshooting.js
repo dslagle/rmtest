@@ -5,7 +5,6 @@ import { FormatAsTime, FormatDateDiff, RMDate } from "../actions/helpers";
 
 class ActualProblemsList extends Component {
     renderProblems() {
-        console.log("render");
         return this.props.actualProblems
             .map(p => {
                 return (
