@@ -93,8 +93,11 @@ class RoutePatternETAAnalytics extends Component {
 
     render() {
         return (
-            <table className="col-md-12 col-fill-1 alternate-rows-1">
+            <table className="col-md-12 col-fill-1 summary-table alternate-rows-1 dark">
                 <thead>
+                    <tr>
+                        <th colSpan="5">ETA Accuracy by Route Pattern</th>
+                    </tr>
                     <tr>
                         <th rowSpan="2">Route Pattern</th>
                         <th colSpan="2">RM</th>

@@ -13,4 +13,4 @@ const HomeNetwork = {
     url: "http://192.168.1.4:9000/data"
 }
 
-export const BASE_URL = Local.url;
+export const BASE_URL = Home.url;

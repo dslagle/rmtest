@@ -7,24 +7,24 @@ table.analytics-summary {
     display: block;
 }
 
-.analytics-summary table.dark td {
+table.dark td, table.dark td a {
     color: white;
 }
 
-.analytics-summary table.summary-table {
+table.summary-table {
     margin-top: -1px;
 }
 
-.analytics-summary table.summary-table:first-child {
+table.summary-table:first-child {
     margin-top: 25px;
 }
 
-.analytics-summary table.summary-table tr:first-of-type th:first-child {
+table.summary-table tr:first-of-type th:first-child {
     color: #444444;
     background-color: #FCD60B;
 }
 
-.analytics-summary table.summary-table tr:first-of-type th:first-child img {
+table.summary-table tr:first-of-type th:first-child img {
     padding: 0;
     margin: 0;
     margin-left: 3px;

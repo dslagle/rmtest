@@ -10,7 +10,7 @@ export const ETASVG = ({ p1, p2, p3, width, height }) => {
     p3 = p3 || 0;
 
     return (
-        <svg width={width || 100} height={h} style={{ marginTop: "4px", border: "1px solid gray" }}>
+        <svg width={width || 150} height={h} style={{ marginTop: "4px", border: "1px solid #444444" }}>
             <rect width={`${p1}%`} height={h} fill="#FFAE34" />
             <rect width={`${p3}%`} x={`${p1}%`} height={h} fill="#55AD89" />
             <rect width={`${p2}%`} x={`${p1 + p3}%`} height={h} fill="#EF6F6A" />
