@@ -1,0 +1,49 @@
+table.analytics-summary {
+    margin-top: 10px;
+    font-size: 14pt;
+}
+
+.analytics-summary span.block-level {
+    display: block;
+}
+
+.analytics-summary table.dark td {
+    color: white;
+}
+
+.analytics-summary table.summary-table {
+    margin-top: -1px;
+}
+
+.analytics-summary table.summary-table:first-child {
+    margin-top: 25px;
+}
+
+.analytics-summary table.summary-table tr:first-of-type th:first-child {
+    color: #444444;
+    background-color: #FCD60B;
+}
+
+.analytics-summary table.summary-table tr:first-of-type th:first-child img {
+    padding: 0;
+    margin: 0;
+    margin-left: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.analytics-summary .adjustable-analytics table.summary-table th span {
+    vertical-align: middle;
+}
+
+.analytics-summary .adjustable-analytics th span.header-input {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+}
+
+.analytics-summary .adjustable-analytics th span.header-input input[type="range"] {
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+}

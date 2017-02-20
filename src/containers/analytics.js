@@ -1,23 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { setAciveDate, setThreshold } from "../actions/index";
+import { setActiveDate, setThreshold } from "../actions/index";
 import DatePicker from "react-datepicker";
 
 class Analytics extends Component {
     render() {
         return (
-            <div>
+            <div className="analytics">
                 <div className="analytics-options clearfix">
                     <div className="options">
                         <div>
                             <span>Date: </span>
                             <DatePicker
-                                selected={moment(this.props.activeDate)}
+                                selected={this.props.activeDate}
                                 autoFocus={false}
                                 onChange={(d) => {
-                                    const date = d.utc(true).valueOf();
-                                    this.props.setActiveDate(date);
+                                    this.props.setActiveDate(d);
                                 }}
                             />
                         </div>
@@ -61,4 +60,4 @@ function mapStateToProps(state) {
     }
 }
 
-module.exports = { Analytics: connect(mapStateToProps, { setAciveDate, setThreshold })(Analytics) };
+module.exports = { Analytics: connect(mapStateToProps, { setActiveDate, setThreshold })(Analytics) };

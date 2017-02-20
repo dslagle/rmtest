@@ -23,14 +23,14 @@ const rootReducer = combineReducers({
   routePatterns: routePatternsReducer,
   actualStops: actualStopsReducer,
   actualProblems: actualProblemsReducer,
-  activeDate: (state = moment().startOf('day').utc().valueOf(), action) => {
+  activeDate: (state = moment().startOf('day'), action) => {
     switch (action.type) {
       case "SET_ACTIVE_DATE":
         return action.payload;
       default: return state;
     }
   },
-  threshold: (state = 5, action) => {
+  threshold: (state = 3, action) => {
     switch (action.type) {
       case "SET_THRESHOLD":
         return action.payload;

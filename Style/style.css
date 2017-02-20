@@ -1,23 +1,42 @@
 @import '../node_modules/react-date-picker/index.css';
 @import '../node_modules/react-datepicker/dist/react-datepicker.css';
 @import './analytics.css';
+@import './analytics-summary.css';
+
+/*
+#2B3B8C BLUE PURPLE
+#4AC0C5 LIGHT BLUE GREEN
+#D51C5A RED
+#FCD60B YELLOW
+#24224A DARK DARK BLUE
+*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #F2F2F2 !important;
+}
 
 #menu-bar {
     background-color: #444444;
-    border-bottom: 1px solid #81B3DF;
+    border-bottom: 1px solid #333333;
+    height: 20px;
 }
 
-#menu-bar .text-info {
-    color: #81B3DF;
+#menu-bar .navbar-brand {
+    color: #FCD60B;
+}
+
+#menu-bar ul.navbar-nav a {
+    color: white;
+}
+
+#menu-bar ul.navbar-nav a:hover {
+    background-color: #F2F2F2;
+    color: #444444;
 }
 
 .problem-date {
     margin-bottom: 10px;
-}
-
-#menu-bar ul.navbar-nav li:hover, #menu-bar ul.navbar-nav li.dropdown.open > a {
-    background-color: #81B3DF;
-    color: black;
 }
 
 #menu-bar ul.navbar-nav li:hover .text-info {
@@ -128,15 +147,25 @@ table.col-fill-4 td:nth-child(4), table.col-fill-5 td:nth-child(5), table.col-fi
   }
 }
 
-tr:nth-child(2n) {
+table.dark.alternate-rows-2 tr:nth-child(4n+1), table.dark.alternate-rows-2 tr:nth-child(4n+2),
+table.dark.alternate-rows-1 tr:nth-child(2n) {
+    background-color: #666666;
+}
+
+table.dark.alternate-rows-2 tr:nth-child(4n), table.dark.alternate-rows-2 tr:nth-child(4n+3),
+table.dark.alternate-rows-1 tr:nth-child(2n+1) {
+    background-color: #555555;
+}
+
+table.alternate-rows-2 tr:nth-child(4n+1), table.alternate-rows-2 tr:nth-child(4n+2),
+table.alternate-rows-1 tr:nth-child(2n) {
     background-color: #CCDDFF;
 }
 
-tr:nth-child(2n+1) {
+table.alternate-rows-2 tr:nth-child(4n), table.alternate-rows-2 tr:nth-child(4n+3),
+table.alternate-rows-1 tr:nth-child(2n+1) {
     background-color: #EEEEEE;
 }
-
-
 
 table.hot-track-row tr:hover > td, table.hot-track-cell td:hover {
     background-color: #51A3FF;

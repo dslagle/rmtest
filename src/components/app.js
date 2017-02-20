@@ -19,20 +19,12 @@ class App extends Component {
         <nav id="menu-bar" className="navbar navbar-default navbar-fixed-top">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">RM</a>
+              <Link className="navbar-brand" href="/">RM Analytics</Link>
             </div>
 
             <ul className="nav navbar-nav float-xs-left">
-              <li className="dropdown">
-                <a className="dropdown-toggle text-info" data-toggle="dropdown" role="button" aria-expanded="false">
-                  ETA Analytics
-                  <span className="caret"></span>
-                </a>
-                <ul className="dropdown-menu" role="menu">
-                  <li><Link to="/analytics/patterns">Route Patterns</Link></li>
-                  <li><Link to="/analytics/stops">Stops</Link></li>
-                </ul>
-              </li>
+              <li><Link to="/analytics/summary">Summary</Link></li>
+              <li><Link to="/analytics/patterns">Route Patterns</Link></li>
             </ul>
 
             <div className="navbar-form navbar-right">

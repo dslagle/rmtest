@@ -8,9 +8,7 @@ import { DateRange } from "../actions/helpers";
 import Axios from "axios";
 import moment from "moment";
 import { ActualProblemsList } from "./actual-troubleshooting";
-
-const BASE_URL = `http://50.167.185.158:9000/data`;
-//const BASE_URL = `http://localhost:9000/data`;
+import { BASE_URL } from "../../api-config";
 
 class ProblemsList extends Component {
     constructor(props) {

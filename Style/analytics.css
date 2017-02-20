@@ -1,7 +1,19 @@
+
+/*
+#2B3B8C BLUE PURPLE
+#4AC0C5 LIGHT BLUE GREEN
+#D51C5A RED
+#FCD60B YELLOW
+#24224A DARK DARK BLUE
+*/
+
+div.analytics {
+    font-size: 12pt;
+}
+
 div.analytics-options, div.crumbs {
     padding: 10px 5px;
-    border: 1px solid gray;
-    border-bottom: none;
+    border: 1px solid #333333;
     background-color: #444444;
     color: white;
     font-weight: bold;
@@ -103,6 +115,10 @@ table.tooltip-table td:first-child {
 
 td.rm-tooltip {
     position: relative;
+}
+
+td.eta-graph {
+    padding: 2px 5px !important;
 }
 
 span.rm-tooltip {

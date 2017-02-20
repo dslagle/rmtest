@@ -1,7 +1,7 @@
 import React from "react";
 
 export const ETASVG = ({ p1, p2, p3, width, height }) => {
-    const h = height || 20;
+    const h = height || 15;
 
     if (!(p1 || p2 || p3)) return <span>N/A</span>
 

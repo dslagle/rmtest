@@ -16,6 +16,18 @@ export function FormatAsDate(d) {
     return `${d.getUTCMonth()+1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
 }
 
+export function FormatAsTimeSpanWithSeconds(value, keepSign = false) {
+    let sign = value < 0;
+    let diff = sign ? -value : value;
+    
+    const h = Math.floor(diff / 3600);
+    diff -= (h * 3600);
+    const m = Math.floor(diff / 60);
+    const s = diff - (m * 60);
+    
+    return `${sign && keepSign ? "-" : ""}${h > 0 ? `${h}h ` : ""}${m}m ${s}s`;
+}
+
 export function FormatDateDiff(value1, value2) {
     if (!value1 || !value2) return "";
 
