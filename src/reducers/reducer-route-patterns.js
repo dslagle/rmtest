@@ -1,4 +1,4 @@
-import { GET_ROUTE_PATTERNS } from "../actions/index";
+import { GET_ROUTE_PATTERNS } from "../actions/constants";
 
 export default function(state = [], action) {
     switch (action.type) {

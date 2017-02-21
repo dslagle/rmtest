@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router";
-import { GPSMap } from "../components/google-map";
-import { setAciveDate, getPatternETAAnalytics } from "../actions/index";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+
+import { GPSMap } from "../components/google-map";
+import { setAciveDate, getPatternETAAnalytics } from "../actions/index";
 
 class App extends Component {
   render() {

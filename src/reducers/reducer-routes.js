@@ -1,4 +1,4 @@
-import { GET_ROUTES } from "../actions/index";
+import { GET_ROUTES } from "../actions/constants";
 
 export default function(state = [], action) {
     switch (action.type) {

@@ -12,12 +12,8 @@ import { ActualStopList } from "./containers/actual-stop-list";
 import { ActualProblemsList } from "./containers/actual-troubleshooting";
 import { ProblemsList } from "./containers/troubleshooting";
 import { ProblemCalendar } from "./containers/problem-calendar";
-import { RoutePatternETAAnalytics } from "./containers/route-pattern-eta-analytics";
-import { AnalyticsSummary } from "./containers/analytics-summary";
-import { StopETAAnalytics } from "./components/stop-eta-analytics";
-import ActiveList from "./components/active-list";
-import { Analytics } from "./containers/analytics";
 
+import { RoutePatternETAAnalytics, AnalyticsSummary, StopETAAnalytics, Analytics } from "./components/analytics/index"
 
 export default (
     <Route path="/" component={App}>

@@ -1,54 +1,57 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Axios from "axios";
-import { BASE_URL } from "../../api-config";
 import numeral from "numeraljs";
 import moment from "moment";
-import { FormatAsTimeSpanWithSeconds } from "../actions/helpers";
 
-class AdjustableAnalytics extends Component {
+import { BASE_URL } from "../../../api-config";
+import { FormatAsTimeSpanWithSeconds } from "../../actions/helpers";
+import { AdjustableAnalytics } from "./adjustable-summary";
+
+class AnalyticsSummary extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            routematch: {
-                byStop: {},
-                byPoint: {}
+            10: {
+                routematch: {
+                    byStop: {},
+                    byPoint: {}
+                },
+                google: {
+                    byStop: {},
+                    byPoint: {}
+                }
             },
-            google: {
-                byStop: {},
-                byPoint: {}
-            },
-            tmin: 0,
-            tmax: 5,
-            min: 0,
-            max: 5,
-            loading: false
+            30: {
+                routematch: {
+                    byStop: {},
+                    byPoint: {}
+                },
+                google: {
+                    byStop: {},
+                    byPoint: {}
+                }
+            }
         };
     }
 
-    update(date, threshold, min, max) {
-        this.setState({ ...this.state, min: min, max: max, loading: true });
-
-        const url = `${BASE_URL}/analytics/eta/rangesummary?date=${date.valueOf()}&threshold=${threshold}&min=${min}&max=${max}`;
+    update(date, threshold) {
+        const url = `${BASE_URL}/analytics/eta/summary?date=${date.valueOf()}&${threshold ? `threshold=${threshold}` : ''}`;
         Axios.get(url)
-            .then(response => this.setState({ ...this.state, ...response.data, loading: false }))
+            .then(response => this.setState(response.data))
             .catch(err => console.error(err));
-    }
-
-    commit() {
-        this.update(this.props.activeDate, this.props.threshold, this.state.tmin, this.state.tmax);
     }
 
     componentWillMount() {
         const date = this.props.activeDate;
         const threshold = this.props.threshold;
 
-        this.update(date, threshold, this.state.min, this.state.max);
+        this.update(date, threshold);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.update(nextProps.activeDate, nextProps.threshold, this.state.min, this.state.max);
+        this.update(nextProps.activeDate, nextProps.threshold);
     }
 
     renderPercentSet(data) {
@@ -70,9 +73,10 @@ class AdjustableAnalytics extends Component {
         ]);
     }
 
-    renderPercentSummary(data) {
+    renderPercentSummary(who, data) {
         return ([
             <tr>
+                <th rowSpan="2">{who}</th>
                 <th rowSpan="1">By Stop</th>
                 {this.renderPercentSet(data.routematch.byStop)}
                 {this.renderPercentSet(data.google.byStop)}
@@ -85,9 +89,10 @@ class AdjustableAnalytics extends Component {
         ]);
     }
 
-    renderValueSummary(data) {
+    renderValueSummary(who, data) {
         return ([
             <tr>
+                <th rowSpan="2">{who}</th>
                 <th rowSpan="1">By Stop</th>
                 {this.renderValueSet(data.routematch.byStop)}
                 {this.renderValueSet(data.google.byStop)}
@@ -104,41 +109,9 @@ class AdjustableAnalytics extends Component {
         return (
             <table className="summary-table alternate-rows-1 dark">
                 <thead>
+                    <tr><th colSpan="10">Analytics Summary</th></tr>
                     <tr>
-                        <th colSpan="9">
-                            <span>Analytics by Time to Next Stop: {`(${this.state.min}-${this.state.max}) Minutes`}</span>
-                            <span className="header-input">
-                                <span>Min: </span>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="59"
-                                    value={this.state.tmin}
-                                    onChange={(e) => this.setState({ ...this.state, tmin: +e.target.value })}
-                                />
-                                <span> {this.state.tmin} Minutes</span>
-                            </span>
-
-                            <span className="header-input">
-                                <span>Max: </span>
-                                <input
-                                    type="range"
-                                    min="1"
-                                    max="60"
-                                    value={this.state.tmax}
-                                    onChange={(e) => this.setState({ ...this.state, tmax: +e.target.value })}
-                                />
-                                <span> {this.state.tmax} Minutes</span>
-                            </span>
-
-                            <span className="header-input">
-                                <button onClick={() => this.commit()}>Apply</button>
-                            </span>
-
-                            {this.state.loading ? <img src="/resources/default.svg" /> : null}
-                        </th>
-                    </tr>
-                    <tr>
+                        <th rowSpan="2">Margin</th>
                         <th rowSpan="2">Type</th>
                         <th colSpan="4">Routematch</th>
                         <th colSpan="4">Google</th>
@@ -153,7 +126,8 @@ class AdjustableAnalytics extends Component {
                         <th>% On-Time</th>
                         <th>% Over</th>
                     </tr>
-                    {this.renderPercentSummary.call(this, this.state)}
+                    {this.renderPercentSummary.call(this, "10 Minutes", this.state[10])}
+                    {this.renderPercentSummary.call(this, "30 Minutes", this.state[30])}
                 </thead>
             </table>
         );
@@ -163,8 +137,9 @@ class AdjustableAnalytics extends Component {
         return (
             <table className="summary-table alternate-rows-1 dark">
                 <thead>
-                    <tr><th colSpan="11">Values</th></tr>
+                    <tr><th colSpan="12">Values</th></tr>
                     <tr>
+                        <th rowSpan="2">Margin</th>
                         <th rowSpan="2">Type</th>
                         <th colSpan="5">Routematch</th>
                         <th colSpan="5">Google</th>
@@ -181,7 +156,8 @@ class AdjustableAnalytics extends Component {
                         <th>Max Under</th>
                         <th>Max Over</th>
                     </tr>
-                    {this.renderValueSummary.call(this, this.state)}
+                    {this.renderValueSummary.call(this, "10 Minutes", this.state[10])}
+                    {this.renderValueSummary.call(this, "30 Minutes", this.state[30])}
                 </thead>
             </table>
         );
@@ -189,9 +165,13 @@ class AdjustableAnalytics extends Component {
 
     render() {
         return (
-            <div className="adjustable-analytics">
-                {this.renderPercentageTable.call(this)}
-                {this.renderValueTable.call(this)}
+            <div className="analytics-summary">
+                <AdjustableAnalytics />
+
+                <div>
+                    {this.renderPercentageTable.call(this)}
+                    {this.renderValueTable.call(this)}
+                </div>
             </div>
         )
     }
@@ -206,4 +186,4 @@ function mapStateToProps(state) {
     };
 }
 
-module.exports = { AdjustableAnalytics: connect(mapStateToProps)(AdjustableAnalytics) };
+module.exports = { AnalyticsSummary: connect(mapStateToProps)(AnalyticsSummary) };

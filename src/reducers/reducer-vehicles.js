@@ -1,4 +1,4 @@
-import { GET_VEHICLES } from "../actions/index";
+import { GET_VEHICLES } from "../actions/constants";
 
 export default function(state = [{ name: "V1" }, { name: "V2" }], action) {
     switch (action.type) {

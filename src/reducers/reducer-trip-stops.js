@@ -1,4 +1,4 @@
-import { GET_TRIP_STOPS } from "../actions/index";
+import { GET_TRIP_STOPS } from "../actions/constants";
 
 export default function(state = [], action) {
     switch (action.type) {

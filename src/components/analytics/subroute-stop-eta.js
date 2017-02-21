@@ -1,40 +1,43 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router";
-import { ETASVG } from "../components/eta-svg";
-import { ETAInfoTooltip } from "../components/eta-info-tooltip";
-import Axios from "axios";
 import moment from "moment";
-import { BASE_URL } from "../../api-config";
+import Axios from "axios";
 
-class RoutePatternETAAnalytics extends Component {
+import { ETASVG } from "./eta-svg";
+import { ETAInfoTooltip } from "./eta-info-tooltip";
+import { getStopETAAnalytics } from "../../actions/index";
+import { BASE_URL } from "../../../api-config";
+
+class StopETAAnalytics extends Component {
     constructor(props) {
         super(props);
 
-        this.renderPatterns = this.renderPatterns.bind(this);
-        this.state = { patterns: [] };
+        this.renderStops = this.renderStops.bind(this);
+        this.update = this.update.bind(this);
+        this.state = { stops: [] };
     }
 
-    update(date, threshold) {
-        const url = `${BASE_URL}/analytics/eta/patterns?date=${date.valueOf()}&${threshold ? `threshold=${threshold}` : ''}`;
+    update(subrouteid, date, threshold) {
+        const url = `${BASE_URL}/analytics/eta/patterns/${subrouteid}?date=${date.valueOf()}&${threshold ? `threshold=${threshold}` : ''}`;
         Axios.get(url)
-            .then(response => this.setState({ patterns: response.data }))
+            .then(response => this.setState({ stops: response.data }))
             .catch(err => console.error(err));
     }
 
     componentWillMount() {
+        const subrouteid = this.props.params.id;
         const date = this.props.activeDate;
         const threshold = this.props.threshold;
 
-        this.update(date, threshold);
+        this.update(subrouteid, date, threshold);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.update(nextProps.activeDate, nextProps.threshold);
+        this.update(nextProps.params.id, nextProps.activeDate, nextProps.threshold);
     }
-
-    renderPatterns() {
-        return this.state.patterns.map(p => {
+    
+    renderStops() {
+        return this.state.stops.sort((s1, s2) => +s2.StopOrder < +s1.StopOrder ? 1 : -1).map(p => {
             let p1, p2, p3, p4, p5, p6;
             let g1, g2, g3, g4, g5, g6;
 
@@ -47,7 +50,7 @@ class RoutePatternETAAnalytics extends Component {
                 g2 = Math.round(p.GoogleOver1 * 100 / p.Total1);
                 g3 = Math.round((p.Total1 - p.GoogleUnder1 - p.GoogleOver1) * 100 / p.Total1);
             }
-
+        
             if (p.Total2 > 0) {
                 p4 = Math.round(p.Under2 * 100 / p.Total2);
                 p5 = Math.round(p.Over2 * 100 / p.Total2);
@@ -57,24 +60,16 @@ class RoutePatternETAAnalytics extends Component {
                 g5 = Math.round(p.GoogleOver2 * 100 / p.Total2);
                 g6 = Math.round((p.Total2 - p.GoogleUnder2 - p.GoogleOver2) * 100 / p.Total2);
             }
-/*
-            <td className="rm-tooltip">
-                <ETASVG p1={p7} p2={p8} p3={p9} />
-                <ETAInfoTooltip p1={p7} p2={p8} p3={p9} total={p.Total3} />
-            </td>
-            <td className="rm-tooltip">
-                <ETASVG p1={p10} p2={p11} p3={p12} />
-                <ETAInfoTooltip p1={p10} p2={p11} p3={p12} total={p.Total4} />
-            </td>*/
-
+            
             return (
-                <tr key={p.SubrouteID}>
-                    <td><Link to={`/analytics/patterns/${p.SubrouteID}`}>{p.SubrouteName}</Link></td>
-                    <td className="rm-tooltip eta-graph">
+                <tr key={p.SubrouteStopID}>
+                    <td>{p.StopOrder}</td>
+                    <td>{p.StopName}</td>
+                    <td className="rm-tooltip">
                         <ETASVG p1={p1} p2={p2} p3={p3} />
                         <ETAInfoTooltip p1={p1} p2={p2} p3={p3} total={p.Total1} />
                     </td>
-                    <td className="rm-tooltip eta-graph">
+                    <td className="rm-tooltip">
                         <ETASVG p1={p4} p2={p5} p3={p6} />
                         <ETAInfoTooltip p1={p4} p2={p5} p3={p6} total={p.Total2} />
                     </td>
@@ -93,27 +88,30 @@ class RoutePatternETAAnalytics extends Component {
 
     render() {
         return (
-            <table className="col-md-12 col-fill-1 summary-table alternate-rows-1 dark">
-                <thead>
-                    <tr>
-                        <th colSpan="5">ETA Accuracy by Route Pattern</th>
-                    </tr>
-                    <tr>
-                        <th rowSpan="2">Route Pattern</th>
-                        <th colSpan="2">RM</th>
-                        <th colSpan="2">Google</th>
-                    </tr>
-                    <tr>
-                        <th>10 Minutes</th>
-                        <th>30 Minutes</th>
-                        <th>10 Minutes</th>
-                        <th>30 Minutes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderPatterns()}
-                </tbody>
-            </table>
+            <div>
+                <div className="crumbs">
+                    <span>{(this.state.stops && this.state.stops.length > 0) ? this.state.stops[0].SubrouteName : "?"}</span>
+                </div>
+                <table className="col-md-12 col-fill-2 alternate-rows-1">
+                    <thead>
+                        <tr>
+                            <th rowSpan="2">#</th>
+                            <th rowSpan="2">Stop</th>
+                            <th colSpan="2">RM</th>
+                            <th colSpan="2">Google</th>
+                        </tr>
+                        <tr>
+                            <th>10 Minutes</th>
+                            <th>30 Minutes</th>
+                            <th>10 Minutes</th>
+                            <th>30 Minutes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderStops()}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 }
@@ -125,4 +123,4 @@ function mapStateToProps(state) {
     }
 }
 
-module.exports = { RoutePatternETAAnalytics: connect(mapStateToProps)(RoutePatternETAAnalytics) };
+module.exports = { StopETAAnalytics: connect(mapStateToProps, { getStopETAAnalytics })(StopETAAnalytics) };

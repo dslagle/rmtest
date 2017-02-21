@@ -1,4 +1,4 @@
-import { GET_VEHICLES_GPS } from "../actions/index";
+import { GET_VEHICLES_GPS } from "../actions/constants";
 
 export default function(state = [], action) {
     switch (action.type) {

@@ -1,4 +1,4 @@
-import { SELECT_GPS } from "../actions/index";
+import { SELECT_GPS } from "../actions/constants";
 
 export default function(state = null, action) {
     switch (action.type) {

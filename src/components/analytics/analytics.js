@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { setActiveDate, setThreshold } from "../actions/index";
 import DatePicker from "react-datepicker";
+
+import { setActiveDate, setThreshold } from "../../actions/index";
 
 class Analytics extends Component {
     render() {
