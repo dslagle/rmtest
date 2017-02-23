@@ -166,12 +166,12 @@ class AnalyticsSummary extends Component {
     render() {
         return (
             <div className="analytics-summary">
-                <AdjustableAnalytics />
-
                 <div>
                     {this.renderPercentageTable.call(this)}
                     {this.renderValueTable.call(this)}
                 </div>
+
+                <AdjustableAnalytics />
             </div>
         )
     }
